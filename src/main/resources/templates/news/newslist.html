@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-Frame-Options" content="deny">
+    <title>News list</title>
+    <link href="../static/css/newslist.css" th:href="@{/css/newslist.css}" rel="stylesheet" />
+    <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+        function hide(e) {
+            e.target.parentElement.getElementsByTagName("iframe")[0].style.display = "none";
+        }
+        function show(e) {
+            e.target.parentElement.getElementsByTagName("iframe")[0].style.display = "block";
+        }
+
+    </script>
+</head>
+
+<body>
+
+<a href="#" th:href="@{'/index/'}">
+    <button>Return</button>
+</a>
+
+
+<!--/*@thymesVar id="news" type="com.czechowski.fromnewsapitoownapiclient.model.News"*/-->
+<h2 th:text="'News for Country '+${news.country}+ ' and category '+${news.country}">country</h2>
+
+<div th:if="${not #lists.isEmpty(news.getResponseArticles())}">
+    <tr th:each="article : ${news.getResponseArticles()}">
+        <div class="shadow radius padding">
+            <iframe class="floatRight" th:src="${article.getArticleUrl()}" sandbox="allow-forms allow-scripts" height="200px" width="300px">tt</iframe>
+            <td th:text="'Author '+${article.getAuthor()}">Author</td></br>
+            <td th:text="'Title '+${article.getTitle()}">Title</td></br>
+            <td th:text="'Description '+${article.getDescription()}">description</td></br>
+            <td th:text="'Date '+${article.getDate()}">date</td></br>
+            <td th:text="'Source name '+${article.getSourceName()}">sourceName</td></br>
+            <td><a href="#" th:text="${article.getArticleUrl()}">ArticleUrl</a></td></br>
+            <td><a href="#" th:text="${article.getImageUrl()}">ArticleUrl</a></td></br>
+            <button id="hide" onclick="hide(event)">Hide</button>
+            <button id="show" onclick="show(event)">Show</button>
+        </div>
+    </tr>
+
+</div>
+
+</body>
+</html>
