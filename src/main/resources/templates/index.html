@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <meta charset="UTF-8">
+    <title>Search news</title>
+
+    <link href="../static/css/index.css" th:href="@{/css/index.css}" rel="stylesheet" />
+
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Roboto:300">
+
+</head>
+<body>
+
+<!--/*@thymesVar id="searchValue" type="com.czechowski.fromnewsapitoownapiclient.model.SearchValue"*/-->
+<!--/*@thymesVar id="countryAndCategorySource" type="com.czechowski.fromnewsapitoownapiclient.model.CountryAndCategorySource"*/-->
+<form th:object="${searchValue}" th:action="@{/news/}" method="post" class="panel">
+
+    <p class="pElement">Country</p>
+    <select th:field="*{country}" class="selectElement">
+        <option
+                th:each="country: ${countryAndCategorySource.getCountrySet()}"
+                th:value="${country}"
+                th:text="${country}"></option>
+    </select>
+    <br>
+
+    <p class="pElement">Category</p>
+    <select th:field="*{category}" class="selectElement">
+        <option
+                th:each="category: ${countryAndCategorySource.getCategorySet()}"
+                th:value="${category}"
+                th:text="${category}"></option>
+    </select>
+    <br>
+
+    <p class="pElement">Search</p>
+    <input type="text" th:field="*{queryToSearch}" class="inputElement">
+    <br>
+
+    <p class="pElement">Page</p>
+    <input type="number" th:field="*{page}" class="inputElement">
+    <br>
+
+    <p class="pElement">Page size</p>
+    <input type="number" th:field="*{pageSize}" class="inputElement">
+    <br>
+
+    <button type="submit" class="buttonElement">Submit</button>
+
+</form>
+
+</body>
+</html>
