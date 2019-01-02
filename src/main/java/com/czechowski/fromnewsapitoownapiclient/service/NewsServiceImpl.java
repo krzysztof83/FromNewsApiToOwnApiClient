@@ -1,5 +1,6 @@
 package com.czechowski.fromnewsapitoownapiclient.service;
 
+import com.czechowski.fromnewsapitoownapiclient.config.RestServiceProperties;
 import com.czechowski.fromnewsapitoownapiclient.model.News;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.*;
@@ -13,15 +14,20 @@ import org.springframework.web.util.UriComponentsBuilder;
 @Service
 public class NewsServiceImpl implements NewsService {
 
-    private static final String HOST = "http://localhost:";
-    private static final String PORT = "8081";
-    private static final String BASEPATH = "/news/";
+    private String HOST;
+    private String PORT;
 
     private RestTemplate restTemplate;
 
-    public NewsServiceImpl(RestTemplateBuilder restTemplateBuilder) {
+    RestServiceProperties restServiceProperties;
+
+    public NewsServiceImpl(RestTemplateBuilder restTemplateBuilder, RestServiceProperties restServiceProperties) {
         this.restTemplate = restTemplateBuilder.build();
+        this.restServiceProperties = restServiceProperties;
+        this.HOST=restServiceProperties.getHost();
+        this.PORT=restServiceProperties.getPort();
     }
+
 
     @Override
     public ResponseEntity<News> findNews(String country, String category, int page, int pageSize, String queryToSearch) {
@@ -40,12 +46,12 @@ public class NewsServiceImpl implements NewsService {
 
     @Override
     public String getBaseUrl() {
-        return HOST + PORT + BASEPATH;
+        return HOST + PORT;
     }
 
     private String getUriWithPagination(String country, String category, int page, int pageSize, String queryToSearch) {
 
-        String uri = getBaseUrl() + country + "/" + category;
+        String uri = getBaseUrl() +"/news/"+ country + "/" + category;
 
         return UriComponentsBuilder.fromHttpUrl(uri)
                 .queryParam("page", page)
