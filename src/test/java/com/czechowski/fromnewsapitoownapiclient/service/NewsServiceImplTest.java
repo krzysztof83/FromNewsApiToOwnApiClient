@@ -14,10 +14,12 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.client.MockRestServiceServer;
+import org.springframework.web.client.HttpClientErrorException;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.requestTo;
+import static org.springframework.test.web.client.response.MockRestResponseCreators.withBadRequest;
 import static org.springframework.test.web.client.response.MockRestResponseCreators.withSuccess;
 
 /**
@@ -35,6 +37,7 @@ public class NewsServiceImplTest {
 
     private final String BASE_URL = "http://localhost:8081/news/";
     private final String PL = "pl";
+    private final String WRONG_COUNTRY = "asd";
     private final String SPORTS = "sports";
     private final String PAGE_PARAM = "page=";
     private final String PAGE_SIZE_PARAM = "pageSize=";
@@ -47,6 +50,7 @@ public class NewsServiceImplTest {
 
 
     private final String PL_SPORTS_URL = BASE_URL + PL + "/" + SPORTS + "?" + PAGE_PARAM + DEFAULT_PAGE + AND + PAGE_SIZE_PARAM + DEFAULT_PAGE_SIZE + AND + QUERY_PARAM + EMPTY_QUERY_TO_SEARCH;
+    private final String WRONG_COUNTRY_SPORTS_URL = BASE_URL + WRONG_COUNTRY + "/" + SPORTS + "?" + PAGE_PARAM + DEFAULT_PAGE + AND + PAGE_SIZE_PARAM + DEFAULT_PAGE_SIZE + AND + QUERY_PARAM + EMPTY_QUERY_TO_SEARCH;
 
     private News news;
 
@@ -100,6 +104,18 @@ public class NewsServiceImplTest {
 
     }
 
+    @Test(expected = HttpClientErrorException.class)
+    public void findNews_statusCode_badRequest() {
+
+        this.server.expect(requestTo(WRONG_COUNTRY_SPORTS_URL))
+                .andRespond(withBadRequest());
+
+        newsService.findNews(WRONG_COUNTRY, SPORTS, DEFAULT_PAGE, DEFAULT_PAGE_SIZE, EMPTY_QUERY_TO_SEARCH);
+
+        server.verify();
+
+    }
+
     @Test
     public void findNews_contentTest() throws JsonProcessingException {
 
@@ -126,18 +142,15 @@ public class NewsServiceImplTest {
 
         assertNotNull(actualNews.getResponseArticles());
 
-        assertEquals(1,actualNews.getResponseArticles().size());
+        assertEquals(1, actualNews.getResponseArticles().size());
 
         assertNotNull(actualNews.getResponseArticles().get(0));
 
         NewsArticle actualNewsArticle = actualNews.getResponseArticles().get(0);
 
-        assertEquals("Author",actualNewsArticle.getAuthor());
+        assertEquals("Author", actualNewsArticle.getAuthor());
 
     }
-
-
-
 
 
 }
