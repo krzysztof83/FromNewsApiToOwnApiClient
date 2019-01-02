@@ -13,12 +13,11 @@ import org.springframework.web.util.UriComponentsBuilder;
 @Service
 public class NewsServiceImpl implements NewsService {
 
-    public static final String HOST = "http://localhost:";
-    public static final String PORT = "8081";
-    public static final String BASEPATH = "/news/";
+    private static final String HOST = "http://localhost:";
+    private static final String PORT = "8081";
+    private static final String BASEPATH = "/news/";
 
-
-    RestTemplate restTemplate;
+    private RestTemplate restTemplate;
 
     public NewsServiceImpl(RestTemplateBuilder restTemplateBuilder) {
         this.restTemplate = restTemplateBuilder.build();
@@ -26,7 +25,6 @@ public class NewsServiceImpl implements NewsService {
 
     @Override
     public ResponseEntity<News> findNews(String country, String category, int page, int pageSize, String queryToSearch) {
-
 
         String url = getUriWithPagination(country, category, page, pageSize, queryToSearch);
 
@@ -42,7 +40,7 @@ public class NewsServiceImpl implements NewsService {
 
     @Override
     public String getBaseUrl() {
-        return HOST+PORT+BASEPATH;
+        return HOST + PORT + BASEPATH;
     }
 
     private String getUriWithPagination(String country, String category, int page, int pageSize, String queryToSearch) {
