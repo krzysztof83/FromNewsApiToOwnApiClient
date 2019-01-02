@@ -1,7 +1,9 @@
 package com.czechowski.fromnewsapitoownapiclient.model.error;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.http.HttpStatus;
 
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -11,11 +13,13 @@ import java.util.Set;
  */
 public class BadRequestError {
 
-    HttpStatus status;
-    String timestamp;
-    String message;
-    String debugMessage;
-    Map<String, Set<String>> additionalInfo = new HashMap();
+    private HttpStatus status;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy hh:mm:ss")
+    private LocalDateTime timestamp;
+    private String message;
+    private String debugMessage;
+    private Map<String, Set<String>> additionalInfo = new HashMap();
+
 
     public BadRequestError() {
     }
@@ -24,44 +28,39 @@ public class BadRequestError {
         return status;
     }
 
-    public BadRequestError setStatus(HttpStatus status) {
+    public void setStatus(HttpStatus status) {
         this.status = status;
-        return this;
     }
 
-    public String getTimestamp() {
+    public LocalDateTime getTimestamp() {
         return timestamp;
     }
 
-    public BadRequestError setTimestamp(String timestamp) {
+    public void setTimestamp(LocalDateTime timestamp) {
         this.timestamp = timestamp;
-        return this;
     }
 
     public String getMessage() {
         return message;
     }
 
-    public BadRequestError setMessage(String message) {
+    public void setMessage(String message) {
         this.message = message;
-        return this;
     }
 
     public String getDebugMessage() {
         return debugMessage;
     }
 
-    public BadRequestError setDebugMessage(String debugMessage) {
+    public void setDebugMessage(String debugMessage) {
         this.debugMessage = debugMessage;
-        return this;
     }
 
     public Map<String, Set<String>> getAdditionalInfo() {
         return additionalInfo;
     }
 
-    public BadRequestError setAdditionalInfo(Map<String, Set<String>> additionalInfo) {
+    public void setAdditionalInfo(Map<String, Set<String>> additionalInfo) {
         this.additionalInfo = additionalInfo;
-        return this;
     }
 }
