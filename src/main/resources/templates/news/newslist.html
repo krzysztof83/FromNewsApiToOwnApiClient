@@ -6,7 +6,7 @@
     <title>News list</title>
     <link href="../static/css/newslist.css" th:href="@{/css/newslist.css}" rel="stylesheet" />
     <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
-
+    <link href="https://fonts.googleapis.com/css?family=Old+Standard+TT&amp;subset=latin-ext" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script>
         function hide(e) {
@@ -31,17 +31,17 @@
 
 <div th:if="${not #lists.isEmpty(news.getResponseArticles())}">
     <tr th:each="article : ${news.getResponseArticles()}">
-        <div class="shadow radius padding">
-            <iframe class="floatRight" th:src="${article.getArticleUrl()}" sandbox="allow-forms allow-scripts" height="200px" width="300px">tt</iframe>
-            <td th:text="'Author '+${article.getAuthor()}">Author</td></br>
-            <td th:text="'Title '+${article.getTitle()}">Title</td></br>
-            <td th:text="'Description '+${article.getDescription()}">description</td></br>
-            <td th:text="'Date '+${article.getDate()}">date</td></br>
-            <td th:text="'Source name '+${article.getSourceName()}">sourceName</td></br>
-            <td><a href="#" th:text="${article.getArticleUrl()}">ArticleUrl</a></td></br>
-            <td><a href="#" th:text="${article.getImageUrl()}">ArticleUrl</a></td></br>
-            <button id="hide" onclick="hide(event)">Hide</button>
-            <button id="show" onclick="show(event)">Show</button>
+        <div class="shadow radius padding" >
+            <iframe class="floatRight" th:src="${article.getArticleUrl()}" sandbox="allow-forms allow-scripts" height="300px" width="400px">tt</iframe>
+            <td th:text="'Author: '+${article.getAuthor()}">Author</td><br><br>
+            <td th:text="'Title: '+${article.getTitle()}">Title</td><br><br>
+            <td th:text="'Description: '+${article.getDescription()}">description</td><br><br>
+            <td th:text="'Date: '+${article.getDate()}">date</td><br><br>
+            <td th:text="'Source name: '+${article.getSourceName()}">sourceName</td><br><br>
+            <td><a href="#" th:href="${article.getArticleUrl()}" th:text="${article.getArticleUrl()}"target="_blank">ArticleUrl</a></td><br><br>
+            <button class="floatRight" id="hide" onclick="hide(event)">Hide</button>
+            <button class="floatRight" id="show" onclick="show(event)">Show</button>
+            <td><a href="#" th:href="${article.getImageUrl()}" th:text="${article.getImageUrl()}"target="_blank">ArticleUrl</a></td><br>
         </div>
     </tr>
 

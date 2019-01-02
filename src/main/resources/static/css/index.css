@@ -1,9 +1,8 @@
 body {
     background:  url('../background/soft_wallpaper.png');
-
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Old Standard TT', serif;
     font-weight: 300;
-    font-size: 48px;
+    font-size: 40px;
 }
 
 .panel {
