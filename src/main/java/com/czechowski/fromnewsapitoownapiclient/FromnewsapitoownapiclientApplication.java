@@ -8,6 +8,7 @@ public class FromnewsapitoownapiclientApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(FromnewsapitoownapiclientApplication.class, args);
+
     }
 
 }
