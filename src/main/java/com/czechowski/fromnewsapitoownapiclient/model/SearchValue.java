@@ -2,15 +2,16 @@ package com.czechowski.fromnewsapitoownapiclient.model;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
+import java.io.Serializable;
 
 /**
  * @author <a href="mailto:k.czechowski83@gmail.com">Krzysztof Czechowski</a>
  */
-public class SearchValue {
+public class SearchValue implements Serializable {
 
     private String country;
     private String category;
-    private String queryToSearch;
+    private String queryToSearch ="";
 
     @Min(0)
     private Integer page = 0;
