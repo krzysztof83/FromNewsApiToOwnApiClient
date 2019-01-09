@@ -1,12 +1,12 @@
 package com.czechowski.fromnewsapitoownapiclient.service;
 
 import com.czechowski.fromnewsapitoownapiclient.config.RestServiceProperties;
+import com.czechowski.fromnewsapitoownapiclient.helper.UriComponentBuliderWithoutNull;
 import com.czechowski.fromnewsapitoownapiclient.model.News;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.web.util.UriComponentsBuilder;
 
 /**
  * @author <a href="mailto:k.czechowski83@gmail.com">Krzysztof Czechowski</a>
@@ -53,7 +53,7 @@ public class NewsServiceImpl implements NewsService {
 
         String uri = getBaseUrl() +"/news/"+ country + "/" + category;
 
-        return UriComponentsBuilder.fromHttpUrl(uri)
+        return UriComponentBuliderWithoutNull.fromHttpUrl(uri)
                 .queryParam("page", page)
                 .queryParam("pageSize", pageSize)
                 .queryParam("q", queryToSearch)
