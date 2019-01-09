@@ -27,7 +27,7 @@
 
 
 <!--/*@thymesVar id="news" type="com.czechowski.fromnewsapitoownapiclient.model.News"*/-->
-<h2 th:text="'News for Country '+${news.country}+ ' and category '+${news.country}">country</h2>
+<h2 th:text="'News for Country '+${news.country}+ ' and category '+${news.category}"></h2>
 
 <div th:if="${not #lists.isEmpty(news.getResponseArticles())}">
     <tr th:each="article : ${news.getResponseArticles()}">
